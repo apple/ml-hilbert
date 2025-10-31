@@ -1,0 +1,7 @@
+# load configs
+defaults:
+ - experiment: async_hilbert
+ - data: minif2f
+ - _self_
+
+results_dir: results/

@@ -1,0 +1,14 @@
+name: formal_to_formal
+
+prover_llm:
+  base_url: 'http://localhost:11211/api/openai/v1'
+  llm_name: 'openai-gpt-oss-20b'
+  # specific to DeepSeek Prover v2
+  prompt_strategy: cot # either cot or non_cot
+  max_tokens: 16384
+
+num_passes: 1
+num_workers: 32
+
+save_proofs_to_disk: true
+verifier_base_url: 'http://localhost:10001/'

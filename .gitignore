@@ -1,0 +1,14 @@
+*.pyc
+__pycache__
+/data
+*.txt
+*.out
+outputs/
+results/
+multirun/
+*.ipynb
+cache/
+tests/
+.aider*
+visualize
+.DS_Store

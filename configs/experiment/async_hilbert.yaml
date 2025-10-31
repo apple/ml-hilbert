@@ -1,0 +1,50 @@
+name: async_hilbert
+
+# LLM configurations
+prover_llm:
+  base_url: 'http://0.0.0.0:10002/v1' #'https://api.openai.com/v1/' #'http://localhost:11211/api/openai/v1'
+  llm_name: 'Goedel-LM/Goedel-Prover-V2-32B' # deepseek-ai/DeepSeek-Prover-V2-7B
+  max_tokens: 16384
+  prompt_strategy: non_cot # either cot or non_cot
+
+informal_llm:
+  base_url: 'http://0.0.0.0:8000/v1'
+  model_name: 'openai/gpt-oss-120b'
+  
+search_engine:
+  cache_dir: cache/
+  data_file: mathlib_informal.jsonl
+  model_name_or_path: cache/all-mpnet-base-v2
+  top_k: 5
+
+# Retrieval configuration
+enable_retrieval: true  # Set to false to disable all retrieval
+
+# AsyncHILBERT parameters (from AsyncHILBERT.__init__)
+max_depth: 4
+verify_each_subgoal_separately: true
+complexity_proof_length_cutoff: 30 # if the informal LLM is trying to write a proof greater than 30 lines, stop and recurse
+save_proofs_to_disk: true
+proof_save_dir: results/proofs/
+sequential_processing: false  # Set to true to process problems one by one
+run_proof_attempts_sequentially: true
+max_concurrent_problems: 8
+
+# Proof attempt configuration - centralized control of all iteration limits and retry counts
+proof_attempt_config:
+  subgoal_decomp_attempts: 4                   # Main proof generation attempts
+  formal_proof_attempts: 4                     # Formal prover LLM attempts 
+  main_theorem_error_corrections: 6            # Error corrections for main theorem 
+  subgoal_error_corrections: 6                 # Error corrections for subgoals 
+  missing_tags_error_corrections: 3            # Error corrections when required tags/code blocks are missing
+  parallel_subgoal_proof_attempts: 4            # Parallel subgoal verification attempts 
+  proof_sketch_corrections: 8                  # Proof sketch refinement attempts 
+  missing_subgoal_extraction_attempts: 3               # Missing subgoal extraction attempts 
+  proof_verification_timeout: 60               # Timeout for Lean proof verification in seconds
+  max_prover_llm_calls: null                      # Max calls to prover LLM per worker, None for unlimited
+  max_reasoner_llm_calls: null                    # Max calls to reasoning LLM per worker, None for unlimited
+
+# How many concurrent requests are sent to the verifier
+max_concurrent_requests: 16
+
+verifier_base_url: 'http://localhost:10001/'
