@@ -1,3 +1,4 @@
+# Note: This repo is not in active development. An active fork maintained by the primary author can be found here: [https://github.com/Rose-STL-Lab/ml-hilbert](https://github.com/Rose-STL-Lab/ml-hilbert).
 #  Hilbert: Recursively Building Formal Proofs with Informal Reasoning
 
 This software project accompanies the research paper, [Hilbert: Recursively Building Formal Proofs with Informal Reasoning](https://arxiv.org/pdf/2509.22819).
